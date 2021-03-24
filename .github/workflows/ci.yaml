@@ -20,6 +20,7 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 11
-    - name: Build with Maven
-      run: rm -rf ./target ; ./mvnw
-      #run: mvn -B clean package --file pom.xml
+    - name: Resolve maven dependencies
+      run: ./mvnw -B dependency:resolve-plugins dependency:resolve > /dev/null
+    - name: Verify maven tests and build
+      run: ./mvnw -B clean package --file ./pom.xml
